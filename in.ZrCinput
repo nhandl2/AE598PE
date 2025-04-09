@@ -1,0 +1,18 @@
+#####################################################################################
+# surface (ZrC) & freeflow (air/O2/N2) chemical reaction modeling
+#
+# Authors: Brendan Jones (bmjones5@illinois.edu)
+# Created for: AE 598 Planetary Re-entry - Spring 2025
+#####################################################################################
+
+seed 12345
+dimension 3
+global gridcut 1.0e-5 comm/sort yes
+
+boundary rr rr rr
+create_box 0 0.0001 0 0.0001 0 0.0001
+create_grid 10 10 10
+balance_grid rcb part
+
+# species air.species N2   # comment this line out to switch to O2 (oxidation)
+species air.species O2     # comment this line out to switch to N2 (nitridation)
