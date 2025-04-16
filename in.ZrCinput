@@ -1,18 +1,58 @@
-#####################################################################################
+#########################################################################################
 # surface (ZrC) & freeflow (air/O2/N2) chemical reaction modeling
 #
 # Authors: Brendan Jones (bmjones5@illinois.edu)
 # Created for: AE 598 Planetary Re-entry - Spring 2025
-#####################################################################################
+#########################################################################################
 
-seed 12345
-dimension 3
-global gridcut 1.0e-5 comm/sort yes
+#########################################################################################
+# DEFINE SIMULATION SPACE AND GLOBAL PROPERTIES
+#########################################################################################
+seed 01886                        # seed number for random number generation
+units si			              # setting SI units (kg, m, s, Pa, K, etc.)
+dimension 3                       # specifies 3 dimensions
+global nrho 0.001027 temp 270.65  # density and temperature of air at 50000m
 
-boundary rr rr rr
-create_box 0 0.0001 0 0.0001 0 0.0001
-create_grid 10 10 10
+boundary sr rr rr                   # defines boundaries (x: surface, reflect; y: reflect, reflect; z: reflect, reflect)
+create_box 0.0 1.0 0.0 1.0 0.0 1.0  # creates simulation space (x_min, x_max, y_min, y_max, z_min, z_max) 
+create_grid 10 10 10                # creates simulation grid (size_x, size_y, size_z)
 balance_grid rcb part
 
-# species air.species N2   # comment this line out to switch to O2 (oxidation)
-species air.species O2     # comment this line out to switch to N2 (nitridation)
+#########################################################################################
+# DEFINE FREEFLOW
+#########################################################################################
+species air.species O2   # defining molecular oxygen
+species air.species N2   # defining molecular nitrogen
+species air.species Ar   # defining Argon
+species air.species air  # defining air 
+mixture atmo_O2 O2 frac 0.21 Ar frac 0.79  # defining a mixture for just oxidation
+mixture atmo_N2 N2 frac 0.78 Ar frac 0.22  # defining a mixture for just nitridation
+
+#########################################################################################
+# DEFINE SURFACE
+#########################################################################################
+read_surf surf.ZrCplane origin 0x 0y 0z particle none # create surface from file at specified points with no particles yet
+
+#########################################################################################
+# CREATE PARTICLES
+#########################################################################################
+create_particles air n 100000 temp 1273       # uncomment to run a simulation with air
+# create_particles atmo_O2 n 100000 temp 1273 # uncomment to run a simulation with oxygen
+# create_particles atmo_N2 n 100000 temp 1273 # uncomment to run a simulation with nitrogen
+
+#########################################################################################
+# DEFINE REACTION
+#########################################################################################
+react qk air.tce  # define reactions using quantum kinetic model, no assumptions about reaction rates
+
+
+#########################################################################################
+# CREATE IMAGES/VIDEOS
+#########################################################################################
+dump ZrCimg image all 1000 ZrCimage.*.jpg type type # create images at timestep *
+dump ZrCmov movie all 100 ZrCmovie.mpg type type    # create movie/gif
+
+#########################################################################################
+# RUN SIMULATION
+#########################################################################################
+run 10000

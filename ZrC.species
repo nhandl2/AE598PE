@@ -1,0 +1,20 @@
+#########################################################################################
+# SPECIES DATA
+#########################################################################################
+
+# ID
+# Molwt (amu)
+# Molmass (kg)
+# Rotational dof
+# RotRel
+# Vibrational dof
+# VibRel
+# VibTemp (K)
+# species wt
+# charge
+
+ZrC
+ZrO
+ZrO2
+ZrN2
+ZrCON 

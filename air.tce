@@ -1,0 +1,53 @@
+#########################################################################################
+# DEFINING CHEMICAL REACTIONS
+#########################################################################################
+
+# Complete chemical reaction, list of all species
+# ZrC + O2 + N2 + Ar => ZrC + ZrO + ZrO2 + ZrN + ZrN2 + ZrCON + O + N + Ar + O2 + N2 + CN + CO + CO2
+
+# Assumptions: high temperature/enthalpy hypersonic flow
+# O and N and NO recombine to O2 and N2
+# CN persists 
+# C and CO result in CO2, C2 exists only briefly
+# ZrO is an intermediary product and will favor ZrO2
+# ZrN2 will decompose and remain as ZrN + N2
+# complex molecules are unlikely to form 
+
+# Revised chemical reaction with assumptions
+# ZrC + O2 + N2 => ZrC + ZrO2 + ZrN + O2 + N2 + CN + CO2
+
+#########################################################################################
+# INCLUDED CHEMICAL REACTIONS
+#########################################################################################
+ZrC + O2 -->  ZrC + ZrO2 + CO2 + O2
+# Need to define the reactions here, see SPARTA guide
+
+ZrC + N2 -->  ZrC + ZrN2 + CN + N2
+# Need to define the reactions here, see SPARTA guide
+
+C + N    -->  CN
+# Need to define the reactions here, see SPARTA guide
+
+C + O2   -->  CO2
+# Need to define the reactions here, see SPARTA guide
+
+
+#########################################################################################
+# OTHER POTENTIAL REACTIONS (EXCLUDED FOR SIMPLIFICATION/BASED ON ASSUMPTIONS)
+#########################################################################################
+# ZrC + O  -->  ZrC + ZrO + C + CO + O
+# ZrC + N  -->  ZrC + ZrN + C + CN + N
+# ZrC + NO -->  ZrC + ZrNO + C + CNO + NO
+# O + O    -->  O2
+# O + O2   -->  O + O + O
+# O + N    -->  NO
+# O + N2   -->  O + N + N
+# O + NO   -->  O + O + N
+# N + N    -->  N2
+# N + N2   -->  N + N + N
+# N + O2   -->  N + O + O
+# N + NO   -->  N + N + O
+# C + C    -->  C2
+# C + O    -->  CO
+# C + N2   -->  CN2
+# C + NO   -->  CNO

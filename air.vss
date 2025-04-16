@@ -1,0 +1,15 @@
+#########################################################################################
+# VARIABLE SOFT SPHERE (VSS) COLLISION MODEL PARAMETERS
+#########################################################################################
+
+# diameter (m)
+# omega - viscosity temperature dependence
+# tref - reference temperature
+# alpha - angular scattering parameter
+
+O   2.92E-10  0.80  273.15  1.0
+N   3.00E-10  0.80  273.15  1.0
+Ar  1.88E-10  0.81  273.15  1.0  
+O2  3.96E-10  0.77  273.15  1.4
+N2  4.07E-10  0.74  273.15  1.6
+NO  4.00E-10  0.80  273.15  1.0
