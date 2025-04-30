@@ -1,5 +1,5 @@
 #########################################################################################
-# surface (ZrC) & freeflow (air/O2/N2) chemical reaction modeling
+# surface (ZrC) & freeflow (O2/N2/air) chemical reaction modeling
 #
 # Authors: Brendan Jones (bmjones5@illinois.edu)
 # Created for: AE 598 Planetary Re-entry - Spring 2025
@@ -13,37 +13,42 @@ units si			              # setting SI units (kg, m, s, Pa, K, etc.)
 dimension 3                       # specifies 3 dimensions
 global nrho 0.001027 temp 270.65  # density and temperature of air at 50000m
 
-boundary sr rr rr                   # defines boundaries (x: surface, reflect; y: reflect, reflect; z: reflect, reflect)
+boundary sr pp pp                   # defines boundary behavior
 create_box 0.0 1.0 0.0 1.0 0.0 1.0  # creates simulation space (x_min, x_max, y_min, y_max, z_min, z_max) 
 create_grid 10 10 10                # creates simulation grid (size_x, size_y, size_z)
 balance_grid rcb part
 
 #########################################################################################
-# DEFINE FREEFLOW
+# DEFINE FREEFLOW - PRE REACTION
 #########################################################################################
-species air.species O2   # defining molecular oxygen
-species air.species N2   # defining molecular nitrogen
-species air.species Ar   # defining Argon
-species air.species air  # defining air 
-mixture atmo_O2 O2 frac 0.21 Ar frac 0.79  # defining a mixture for just oxidation
-mixture atmo_N2 N2 frac 0.78 Ar frac 0.22  # defining a mixture for just nitridation
+species reactants.species O2  # defining molecular gaseous oxygen 
+species reactants.species N2  # defining molecular gaseous nitrogen
+species reactants.species Ar  # defining monoatomic argon gas
+
+mixture atmo_O2 O2 frac 0.21 Ar frac 0.79             # defining a mixture for just oxidation
+# mixture atmo_N2 N2 frac 0.78 Ar frac 0.22           # defining a mixture for just nitridation
+# mixture air O2 frac 0.21 N2 frac 0.78 Ar frac 0.01  # defining a mixture for air
+
+react none  # no reactions occuring in the gas phase pre-reaction, otherwise reference air.tce file
 
 #########################################################################################
 # DEFINE SURFACE
 #########################################################################################
-read_surf surf.ZrCplane origin 0x 0y 0z particle none # create surface from file at specified points with no particles yet
+read_surf surf.cube group ZrCcube origin 0x 0y 0z particle none   # create surface from file at specified points with no particles yet
+surf_collide ZrCcollide spec 2000 1.0                             # defining the collision model to be used (diffusion, T = 2000, acc = 1.0)
+surf_react ZrCreact adsorb gs/ps gas_react.surf surf_react.surf   # defining the reaction model to be used
+surf_modify ZrCcube collide ZrCcollide react ZrCreact             # assign collision and reaction models to the surface
 
 #########################################################################################
 # CREATE PARTICLES
 #########################################################################################
-create_particles air n 100000 temp 1273       # uncomment to run a simulation with air
-# create_particles atmo_O2 n 100000 temp 1273 # uncomment to run a simulation with oxygen
-# create_particles atmo_N2 n 100000 temp 1273 # uncomment to run a simulation with nitrogen
+create_particles atmo_O2 n 100000 temp 270.65    # creating oxygen particles
+# create_particles atmo_N2 n 100000 temp 270.65  # creating nitrogen particles
+# create_particles air n 100000 temp 270.65      # creating air particles
 
 #########################################################################################
 # DEFINE REACTION
 #########################################################################################
-react qk air.tce  # define reactions using quantum kinetic model, no assumptions about reaction rates
 
 
 #########################################################################################

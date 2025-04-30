@@ -1,0 +1,74 @@
+#########################################################################################
+# ZRC SURFACE CHEMICAL REACTIONS OVERVIEW
+#########################################################################################
+
+# Complete chemical reaction, list of all species
+# ZrC + O2 + N2 + Ar => ZrC + ZrO + ZrO2 + ZrN + ZrN2 + ZrCON + O + N + Ar + O2 + N2 + NO + CN + CO + CO2
+
+# Assumptions: high temperature/enthalpy hypersonic flow
+# O and N and NO recombine to O2 and N2
+# CN persists 
+# C and CO result in CO2, C2 exists only briefly
+# ZrO is an intermediary product and will favor ZrO2
+# ZrN2 is an intermediary product and will favor ZrN + N2
+# complex molecules are unlikely to form 
+
+# Revised chemical reaction with assumptions
+# ZrC + O2 + N2 => ZrC + ZrO2 + ZrN + O2 + N2 + CN + CO2
+
+#########################################################################################
+# DEFINING SPARTA SURFACE CHEMICAL REACTIONS
+#########################################################################################
+# R1(g) + R2(s) + R3(b) --> P1(g) + P2(s) + P3(b)
+#     - (g): gas particle
+#     - (s): surface adsorbed particle
+#     - (b): bulk surface material
+# reaction-type reaction-style C1 C2...
+# reaction-type: DS, LH2, LH4, SB
+#     - DS: Desorption
+#     - LH2: Langmuir-Hinshelwood type 2
+#     - LH4: Langmuir-Hinshelwood type 4
+#     - SB: Sublimation
+# style: S, A
+#     - S: Simple
+#     - A: Arrhenius K(T)=(A)(T^b)(e^(-E_a/T))
+# C1: reaction rate constant (Simple), A (Arrhenius)
+# C2: b (temperature exponent)
+# C3: E_a (activation energy)
+# N: for adsorption reactions (AA, DA, LH1, LH3, CD) the number of species that adsorb on the surface
+
+#########################################################################################
+# INCLUDED SURFACE CHEMICAL REACTIONS (FOR O2)
+#########################################################################################
+ZrC(b) + O2(s) -->  ZrC(b) + ZrO2(b) + C(g) + O2(g)
+
+
+C + O2 --> CO2
+
+#########################################################################################
+# INCLUDED SURFACE CHEMICAL REACTIONS (FOR N2)
+#########################################################################################
+ZrC(b) + N2(s) -->  ZrC(b) + ZrN(b) + C(g) + N2(g)
+
+
+C + N --> CN
+
+#########################################################################################
+# OTHER POTENTIAL SURFACE REACTIONS (EXCLUDED FOR SIMPLIFICATION/BASED ON ASSUMPTIONS)
+#########################################################################################
+# ZrC + O  -->  ZrC + ZrO + C + CO + O
+# ZrC + N  -->  ZrC + ZrN + C + CN + N
+# ZrC + NO -->  ZrC + ZrNO + C + CNO + NO
+# O + O    -->  O2
+# O + O2   -->  O + O + O
+# O + N    -->  NO
+# O + N2   -->  O + N + N
+# O + NO   -->  O + O + N
+# N + N    -->  N2
+# N + N2   -->  N + N + N
+# N + O2   -->  N + O + O
+# N + NO   -->  N + N + O
+# C + C    -->  C2
+# C + O    -->  CO
+# C + N2   -->  CN2
+# C + NO   -->  CNO

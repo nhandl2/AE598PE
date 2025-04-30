@@ -1,0 +1,29 @@
+#########################################################################################
+# SPECIES DATA - USED AS REACTANTS IN FREEFLOW/SURFACE CHEMICAL REACTIONS
+#########################################################################################
+
+# ID
+# Molwt (amu) = molar weight
+# Molmass (kg) = molar weight/(Avogadro's Number * 10^3)
+# RotDoF = rotational DoF
+# RotRel = rotational relaxation
+# VibDoF = VibMode (Linear molecules: 3N - 5, Nonlinear molecules: 3N - 6) * 2
+# VibRel = vibrational relaxation
+# VibTemp (K) = VibEnergy/k = (h*v)/k = (6.626E-34 J*s)*v/(1.380E-23 J/K)
+# speciesWt
+# charge (-1.0, 0.0, +1.0)
+
+# ID  Molwt    Molmass   RotDoF  RotRel  VibDoF  VibRel     VibTemp  speciesWt  charge
+Zr     91.224  1.52E-25  0       0.0     0       0.0        0.0      1.0        0.0 
+ZrC   103.235  1.71E-25  0       0.0     0       0.0        0.0      1.0        0.0
+ZrO2  123.222  2.05E-25  0       0.0     0       0.0        0.0      1.0        0.0
+ZrN   105.231  1.75E-25  0       0.0     0       0.0        0.0      1.0        0.0
+
+O      16.000  2.65E-26  0       0.0     0      0.0         0.0      1.0        0.0
+N      14.008  2.33E-26  0       0.0     0      0.0         0.0      1.0        0.0
+Ar     39.948  6.64E-26  0       0.0     0      0.0         0.0      1.0        0.0
+O2     32.000  5.31E-26  2       0.2     2      5.58659E-5  2256.0   1.0        0.0
+N2     28.016  4.65E-26  2       0.2     2      1.90114E-5  3371.0   1.0        0.0
+NO     30.008  4.98E-26  2       0.2     2      7.14285E-4  2719.0   1.0        0.0
+CN     26.010  4.32E-26  2       0.2     2      5.00000E-4  2880.0   1.0        0.0
+CO2    44.010  7.31E-26  2       0.2     8      1.00000E-4  3370.0   1.0        0.0
