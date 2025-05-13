@@ -178,5 +178,5 @@ for t, (label, _) in species_info.items():
             "-vcodec", "libx264", "-pix_fmt", "yuv420p",
             output_video
         ])
-        print(f"✅ Created video: {output_video}")
+        print(f"Created video: {output_video}")
 
