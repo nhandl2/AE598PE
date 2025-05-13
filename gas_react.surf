@@ -1,45 +1,10 @@
-#########################################################################################
-# ZRC SURFACE CHEMICAL REACTIONS OVERVIEW
-#########################################################################################
+O2(g) + ZrC(b) --> CO2(g) + ZrO2(s)
+LH1 S 0.5 1
+specular
 
-# Complete chemical reaction, list of all species
-# ZrC + O2 + N2 + Ar => ZrC + ZrO + ZrO2 + ZrN + ZrN2 + ZrCON + O + N + Ar + O2 + N2 + NO + CN + CO + CO2
-
-# Assumptions: high temperature/enthalpy hypersonic flow
-# O and N and NO recombine to O2 and N2
-# CN persists 
-# C and CO result in CO2, C2 exists only briefly
-# ZrO is an intermediary product and will favor ZrO2
-# ZrN2 is an intermediary product and will favor ZrN + N2
-# complex molecules are unlikely to form 
-
-# Revised chemical reaction with assumptions
-# ZrC + O2 + N2 => ZrC + ZrO2 + ZrN + O2 + N2 + CN + CO2
-
-#########################################################################################
-# DEFINING SPARTA SURFACE CHEMICAL REACTIONS
-#########################################################################################
-# R1(g) + R2(s) + R3(b) --> P1(g) + P2(s) + P3(b)
-#     - (g): gas particle
-#     - (s): surface adsorbed particle
-#     - (b): bulk surface material
-# reaction-type reaction-style C1 C2...
-# reaction-type: AA, DA, LH1, LH3, CD, ER, CI
-#     - AA: Associative Adsorption
-#     - DA: Dissociative Adsorption
-#     - LH1: Langmuir-Hinshelwood type 1
-#     - LH3: Langmuir-Hinshelwood type 3
-#     - CD: Condensation
-#     - ER: Eley-Rideal
-#     - CI: Collision-Induced
-# style: S, A
-#     - S: Simple
-#     - A: Arrhenius K(T)=(A)(T^b)(e^(-E_a/T))
-# C1: reaction rate constant (Simple), A (Arrhenius)
-# C2: b (temperature exponent)
-# C3: E_a (activation energy)
-# N: for adsorption reactions (AA, DA, LH1, LH3, CD) the number of species that adsorb on the surface
-
-#########################################################################################
-# INCLUDED SURFACE CHEMICAL REACTIONS (FOR O2)
-#########################################################################################
+#O2(g) + ZrC(b) --> CO2(g) + Zr(s)
+#LH1 S 0.5 1
+#specular
+# C oxidation
+#O2(g) + Zr(s) --> ZrO2(s)
+#LH3 S 1 1
