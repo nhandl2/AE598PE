@@ -27,7 +27,7 @@ num_frames = len(dump_files)
 # Initialize particle count dictionary
 particle_counts = {t: [] for t in species_info}
 
-# ✅ Process each frame with progress bar
+# Process each frame with progress bar
 for dump_file in tqdm(dump_files, desc="Processing frames", ncols=80):
     with open(dump_file, 'r') as f:
         lines = f.readlines()
@@ -40,7 +40,7 @@ for dump_file in tqdm(dump_files, desc="Processing frames", ncols=80):
     y = data[:, 3].astype(float)
     z = data[:, 4].astype(float)
 
-    # ✅ Filter particles inside the simulation box
+    # Filter particles inside the simulation box
     in_box_mask = (
         (x >= -0.55) & (x <= 0.55) &
         (y >= -0.55) & (y <= 0.55) &
