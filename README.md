@@ -3,7 +3,7 @@ Repository for AE 598 Planetary Entry Final Project
 
 Title: Zirconium Carbide Oxidation Modeling with SPARTA
 
-Contributors: Rachel Hays, Liam Heuser, Nayan Jangid, Brendan Jones, and Nathan Lam.
+Contributors: Liam Heuser, Nayan Jangid, Brendan Jones, and Nathan Lam.
 
 Using SPARTA, this project simulates chemical reactions on ZrC (Zirconium Carbide) surfaces exposed to oxidizing gases. It analyzes surface reactions and gas-phase behavior in hypersonic entry scenarios. Post-processing is done using Python to extract physical insights and generate visualizations.
 
