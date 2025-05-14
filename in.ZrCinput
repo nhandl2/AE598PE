@@ -8,31 +8,28 @@
 #########################################################################################
 # DEFINE SIMULATION SPACE AND GLOBAL PROPERTIES
 #########################################################################################
-seed 01886                        # seed number for random number generation
-units si			              # setting SI units (kg, m, s, Pa, K, etc.)
-timestep 0.00001
-dimension 3                       # specifies 3 dimensions
-global nrho 0.001027  temp 270.65 # density and temperature of air at 50000m
+seed 01886                                     # seed number for random number generation
+units si			                                 # setting SI units (kg, m, s, Pa, K, etc.)
+timestep 0.00001                               # setting timestep
+dimension 3                                    # specifies 3 dimensions
+global nrho 0.001027  temp 270.65              # density and temperature of air at 50000m
 
-boundary o r r                   # defines boundary behavior
-create_box -40.55 0.55 -0.55 0.55 -0.55 0.55
-region inflow_plane block -40.55 -0.30 -0.55 0.55 -0.55 0.55
+boundary o r r                                 # defines boundary behavior
+create_box -40.55 0.55 -0.55 0.55 -0.55 0.55   # defines the simulation space
+region inflow_plane block -40.55 -0.30 -0.55 0.55 -0.55 0.55 # creates a designated region for gas particle generation
 
-create_grid 10 10 10                # creates simulation grid (size_x, size_y, size_z)
-balance_grid rcb part
+create_grid 10 10 10                           # creates simulation grid (size_x, size_y, size_z)
+balance_grid rcb part                          
 
 #########################################################################################
 # DEFINE FREEFLOW - PRE REACTION
 #########################################################################################
-# Load species from file, explicitly naming them
-species reactants.species O2 Ar CO2 ZrO2 Zr C ZrC
+species reactants.species O2 Ar CO2 ZrO2 Zr C ZrC # Load species/properties from file by explicit name
 
-
-# Define atmosphere-like mixture with realistic fractions
-mixture all_species O2 Ar CO2 ZrO2 Zr C ZrC vstream 3000 0.0 0.0 temp 270.65
-mixture atmo_O2 O2 frac 0.21 vstream 3000 0.0 0.0 temp 270.65
-mixture atmo_O2 Ar frac 0.79 vstream 3000 0.0 0.0 temp 270.65    # 79% argon
-
+# Define atmosphere-like mixture with realistic fractions and properties
+mixture all_species O2 Ar CO2 ZrO2 Zr C ZrC vstream 3000 0.0 0.0 temp 270.65 # 3000m/s, 270.65K
+mixture atmo_O2 O2 frac 0.21 vstream 3000 0.0 0.0 temp 270.65 # partial fraction of oxygen in atmospheric air
+mixture atmo_O2 Ar frac 0.79 vstream 3000 0.0 0.0 temp 270.65 # chosen partial fraction of argon to maintain
 
 react none  # no reactions occuring in the gas phase pre-reaction, otherwise reference air.tce file
 
@@ -40,13 +37,9 @@ react none  # no reactions occuring in the gas phase pre-reaction, otherwise ref
 # DEFINE SURFACE
 #########################################################################################
 read_surf surf.cube group ZrCcube origin 0.0 0.0 0.0
-surf_collide ZrCcollide specular     # defining the collision model to be used (diffusion, T = 2000, acc = 1.0)
-#surf_collide ZrCcollide diffuse 2000.0 0.2
+surf_collide ZrCcollide specular # defining the collision model to be used (diffusion, T = 2000, acc = 1.0)
 surf_react ZrCreact adsorb gs/ps gas_react.surf surf_react.surf nsync 1 surf 2000.0 4.53079e12 O2 CO2 Zr ZrO2
-
-#surf_react ZrCreact adsorb gs gas_react.surf nsync 1 surf 2000.0 1.1e11 O2 CO2 Zr ZrO2
-
-surf_modify ZrCcube collide ZrCcollide react ZrCreact             # assign collision and reaction models to the surface
+surf_modify ZrCcube collide ZrCcollide react ZrCreact # assign collision and reaction models to the surface
 
 #########################################################################################
 # CREATE PARTICLES
@@ -56,11 +49,6 @@ create_particles atmo_O2 n 1000000 region inflow_plane   # creating oxygen parti
 #create_particles atmo_O2 n 100000   # creating oxygen particles
 # create_particles atmo_N2 n 100000 temp 270.65  # creating nitrogen particles
 # create_particles air n 100000 temp 270.65      # creating air particles
-
-#########################################################################################
-# DEFINE REACTION
-#########################################################################################
-
 
 #########################################################################################
 # CREATE IMAGES/VIDEOS
@@ -73,14 +61,6 @@ create_particles atmo_O2 n 1000000 region inflow_plane   # creating oxygen parti
 #dump surfchem surf ZrCcube 100 surfchem/dump.surfchem.* id
 dump allpart particle all_species 1 gas/dump.allpart.* id type x y z
 #dump surfchem surf ZrCcube 10 solid/dump.surfchem.* id type
-
-
-
-
-
-#stats_style full
-
-
 stats 1000
 
 #########################################################################################
